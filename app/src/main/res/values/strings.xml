@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Daily Chores</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Submit</string>
+    <string name="title_activity_recycler_view_base">RecyclerViewBaseActivity</string>
+    <string name="title_activity_new_chores">New Chores</string>
+
+</resources>
