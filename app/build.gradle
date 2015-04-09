@@ -17,6 +17,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/raw'] } }
 }
 
 dependencies {
@@ -26,4 +27,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.google.android.gms:play-services:7.0.0'
     compile 'com.afollestad:material-dialogs:0.7.0.1'
+    compile 'de.psdev.licensesdialog:licensesdialog:1.7.0'
 }

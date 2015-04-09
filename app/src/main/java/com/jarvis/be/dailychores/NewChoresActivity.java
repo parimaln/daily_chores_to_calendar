@@ -346,4 +346,5 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
                 .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
         startActivity(intent);
     }
+
 }

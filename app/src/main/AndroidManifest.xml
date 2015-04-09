@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jarvis.be.dailychores" >
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +28,14 @@
             android:name=".NewChoresActivity"
             android:label="@string/title_activity_new_chores"
             android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jarvis.be.dailychores.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Preferences"
+            android:label="@string/title_activity_preferences"
+            android:parentActivityName="com.jarvis.be.dailychores.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jarvis.be.dailychores.MainActivity" />

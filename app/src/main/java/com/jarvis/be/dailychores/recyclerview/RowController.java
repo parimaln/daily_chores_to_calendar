@@ -31,7 +31,7 @@ public class RowController extends RecyclerView.ViewHolder
     {
         super(row);
         this.mActivity = mActivity;
-        Typeface typefaceLight = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Roboto-Light.ttf");
+        Typeface typefaceLight = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Roboto-Regular.ttf");
         Typeface typefaceThin = Typeface.createFromAsset(mActivity.getAssets(), "fonts/Roboto-Thin.ttf"); //rcondensedlight.ttf
         titleTv = (TextView) row.findViewById(R.id.textView4);
         addressTv = (TextView) row.findViewById(R.id.textView6);
@@ -77,19 +77,16 @@ public class RowController extends RecyclerView.ViewHolder
 
     private void makeCalendarEntry(){
         long calID = _calId;
-        long startMillis = 0;
-        long endMillis = 0;
+        long startMillis;
         Calendar beginTime = Calendar.getInstance();
 
         startMillis = beginTime.getTimeInMillis();
-
-        endMillis = beginTime.getTimeInMillis();
 
         TimeZone tz = TimeZone.getDefault();
         ContentResolver cr = mActivity.getContentResolver();
         ContentValues values = new ContentValues();
         values.put(CalendarContract.Events.DTSTART, startMillis);
-        values.put(CalendarContract.Events.DTEND, endMillis);
+        values.put(CalendarContract.Events.DTEND, startMillis);
         values.put(CalendarContract.Events.TITLE, _title);
         values.put(CalendarContract.Events.DESCRIPTION, "Entry made from Daily chores App");
         values.put(CalendarContract.Events.CALENDAR_ID, calID);
