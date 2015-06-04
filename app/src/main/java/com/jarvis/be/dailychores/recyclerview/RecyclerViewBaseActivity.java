@@ -2,18 +2,17 @@ package com.jarvis.be.dailychores.recyclerview;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
 
 import com.jarvis.be.dailychores.Preferences;
 import com.jarvis.be.dailychores.R;
 
-public class RecyclerViewBaseActivity extends ActionBarActivity {
+public class RecyclerViewBaseActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

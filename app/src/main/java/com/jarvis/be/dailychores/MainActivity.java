@@ -2,6 +2,7 @@ package com.jarvis.be.dailychores;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -24,15 +25,15 @@ public class MainActivity extends RecyclerViewBaseActivity {
         super.onCreate(savedInstanceState);
 
 
-
-
-        findViewById(R.id.new_entry).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.new_entry);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), NewChoresActivity.class);
                 startActivity(i);
             }
         });
+
     }
 
     @Override

@@ -3,30 +3,32 @@ package com.jarvis.be.dailychores;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.jarvis.be.dailychores.com.jarvis.be.dailychores.model.EventDbHandler;
+import com.jarvis.be.dailychores.recyclerview.DatePickerFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 
-public class NewChoresActivity extends ActionBarActivity implements View.OnClickListener{
+public class NewChoresActivity extends AppCompatActivity implements View.OnClickListener, TimePickerFragment.TimeDialogListener, DatePickerFragment.DateDialogListener{
     Switch recurToggle;
     RelativeLayout timeLayout, addressLayout, calendarLayout;
     FrameLayout timeBorder;
@@ -83,7 +85,8 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
         textViewTime = (TextView) findViewById(R.id.textViewTime);
         textViewTime.setText(formattedTime);
         textViewDate.setText(formattedDate);
-
+        textViewDate.setOnClickListener(this);
+        textViewTime.setOnClickListener(this);
         //Calendar Selection logic
         calendarLayout = (RelativeLayout) findViewById(R.id.calendarLayout);
         calendarLayout.setOnClickListener(this);
@@ -91,6 +94,8 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
 
         //Event related
         eventTitle = (EditText) findViewById(R.id.editText);
+
+
     }
 
     @Override
@@ -173,9 +178,9 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
                 if(eventTitle.getText().toString().length()>5){
                     if(!addressView.getText().toString().matches("Address")){
                         if(calendarId!=0){
-                            //makeCalendarEntry();
-                            calendarIntent();
-                            //Toast.makeText(getApplicationContext(), "Chores added to calendar", Toast.LENGTH_SHORT).show();
+                            makeCalendarEntry();
+                            //calendarIntent();
+                            Toast.makeText(getApplicationContext(), "Chores added to calendar", Toast.LENGTH_SHORT).show();
                             finish();
                         }else{
                             new MaterialDialog.Builder(this)
@@ -249,6 +254,10 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
             }
         }else if(v.getId() == R.id.calendarLayout){
             loadCalendars();
+        }else if(v.getId() == R.id.textViewDate){
+            showDatePickerDialog();
+        }else if(v.getId() == R.id.textViewTime){
+            showTimePickerDialog();
         }
     }
 
@@ -258,7 +267,7 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
                 Place place = PlacePicker.getPlace(data, this);
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
-                addressView.setText(place.getAddress());
+                addressView.setText(place.getName()+" "+place.getAddress());
             }
         }
     }
@@ -347,4 +356,33 @@ public class NewChoresActivity extends ActionBarActivity implements View.OnClick
         startActivity(intent);
     }
 
+
+    public void showDatePickerDialog() {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    public void showTimePickerDialog() {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+
+    @Override
+    public void onDateSet(DatePicker dialog, int year, int monthOfYear, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("EEE dd MMM yyyy");
+        c.set(year, monthOfYear, dayOfMonth);
+        String formattedDate = df.format(c.getTime());
+        textViewDate.setText(formattedDate);
+    }
+
+    @Override
+    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        String formattedTime = df.format(c.getTime());
+        textViewTime.setText(formattedTime);
+    }
 }

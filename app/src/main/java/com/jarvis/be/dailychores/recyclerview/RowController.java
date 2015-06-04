@@ -44,7 +44,7 @@ public class RowController extends RecyclerView.ViewHolder
 
     @Override
     public void onClick(View v) {
-        /*
+
         new MaterialDialog.Builder(mActivity)
                 .title(titleTv.getText().toString())
                 .content("Are you sure you want to make the entry for this chores")
@@ -54,20 +54,20 @@ public class RowController extends RecyclerView.ViewHolder
                 .callback(new MaterialDialog.ButtonCallback() {
                     @Override
                     public void onPositive(MaterialDialog dialog) {
-                        //makeCalendarEntry();
-                        calendarIntent();
+                        makeCalendarEntry();
+                        //calendarIntent();
                         Toast.makeText(mActivity, "Chores added to calendar", Toast.LENGTH_SHORT).show();
                     }
                 })
-                .show();*/
-        calendarIntent();
+                .show();
+        //calendarIntent();
     }
 
 
 
     public void bindModel(ChoresModel tempChoresModel) {
         titleTv.setText(tempChoresModel.getTitle());
-        calendarTv.setText(tempChoresModel.getCalName());
+        calendarTv.setText("Google Calendar: "+tempChoresModel.getCalName());
         addressTv.setText(tempChoresModel.getAddress());
         _calId = Long.parseLong(tempChoresModel.getCalId());
         _address = tempChoresModel.getAddress();
